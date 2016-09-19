@@ -1,0 +1,90 @@
+.catalog:
+  name: "Structure"
+  version: "b94c3a2"
+  questions:
+    - variable: "registry_url"
+      description: "Registry url"
+      label: "Registry url"
+      type: "string"
+      required: true
+      default: "registry.viareport.com:8080"
+    - variable: "authentication_source"
+      description: "Authentication stack"
+      label: "Authentication source"
+      type: "service"
+      required: true
+      default: "authentication/authentication"
+    - variable: "PG_DB_NAME"
+      description: "Postgres database name"
+      label: "Database name"
+      type: "string"
+      required: true
+      default: "structure"
+    - variable: "PG_LOGIN"
+      description: "Postgres database login"
+      label: "Database login"
+      type: "string"
+      required: true
+    - variable: "PG_PASSWORD"
+      description: "Postgres database password"
+      label: "Database password"
+      type: "password"
+      required: true
+    - variable: "PG_PORT"
+      description: "Postgres database password"
+      label: "Database password"
+      type: "string"
+      required: true
+      default: "5432"
+    - variable: "PG_URL"
+      description: "Postgres database password"
+      label: "Database password"
+      type: "string"
+      required: true
+      default: "structureDB"
+
+structure-front:
+  scale: 1
+  health_check:
+    port: 80
+    interval: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 60000
+    healthy_threshold: 2
+LB-structure:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+restit-back:
+  scale: 1
+  health_check:
+    port: 4568
+    interval: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 60000
+    request_line: GET /apirestit/ping "HTTP/1.0"
+    healthy_threshold: 2
+postgresql:
+  external_ips:
+  - 192.168.1.86
+inativ-services:
+  external_ips:
+  - 192.168.1.13
+structure-back:
+  scale: 1
+  health_check:
+    port: 4568
+    interval: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 60000
+    request_line: GET /apistructure/ping "HTTP/1.0"
+    healthy_threshold: 2
