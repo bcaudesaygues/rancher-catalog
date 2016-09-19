@@ -1,6 +1,6 @@
 .catalog:
   name: "Structure"
-  version: "toto"
+  version: "1"
   questions:
     - variable: "registry_url"
       description: "Registry url"
