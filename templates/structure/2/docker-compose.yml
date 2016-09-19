@@ -1,8 +1,8 @@
 structure-front:
   labels:
-    container: structure-front:b94c3a2
+    container: structure-front:9197cc6
   tty: true
-  image: ${registry_url}/inativ/structure-front:b94c3a2
+  image: ${registry_url}/inativ/structure-front:9197cc6
   stdin_open: true
 LB-structure:
   expose:
