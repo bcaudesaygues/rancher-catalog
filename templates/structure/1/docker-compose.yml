@@ -1,0 +1,48 @@
+structure-front:
+  labels:
+    container: structure-front:b94c3a2
+  tty: true
+  image: ${registry_url}/inativ/structure-front:b94c3a2
+  stdin_open: true
+LB-structure:
+  expose:
+  - 80:80
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - structure-front:structure-front
+  stdin_open: true
+restit-back:
+  external_links:
+  - ${authentication_source}:authentication
+  labels:
+    io.rancher.container.pull_image: always
+    container: restit:c234c43
+  tty: true
+  image: ${registry_url}/inativ/restit:c234c43
+  links:
+  - postgresql:structureDB
+  stdin_open: true
+postgresql:
+  image: rancher/external-service
+inativ-services:
+  image: rancher/external-service
+structure-back:
+  environment:
+    PG_DB_NAME: ${PG_DB_NAME}
+    PG_LOGIN: ${PG_LOGIN}
+    PG_PASSWORD: ${PG_PASSWORD}
+    PG_PORT: ${PG_PORT}
+    PG_URL: ${PG_URL}
+  external_links:
+  - ${authentication_source}:authentication
+  labels:
+    container: structure:65b7a60
+  tty: true
+  image: ${registry_url}/inativ/structure:65b7a60
+  links:
+  - postgresql:structureDB
+  - 'inativ-services:'
+  volumes:
+  - /var/log/inativ/structure:/logs
+  stdin_open: true
