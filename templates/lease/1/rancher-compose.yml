@@ -57,3 +57,13 @@ lease-front:
     strategy: recreate
     response_timeout: 2000
     healthy_threshold: 2
+lease-back:
+  scale: 1
+  health_check:
+    port: 4567
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET "/apilease/ping" "HTTP/1.0"
+    healthy_threshold: 2
