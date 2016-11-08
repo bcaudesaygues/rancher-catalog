@@ -25,3 +25,12 @@ lease-back:
   volumes:
   - /var/log/inativ/lease/back:/logs
   stdin_open: true
+lease-reducer:
+  labels:
+    io.rancher.container.pull_image: always
+    container: leasev2-reducer:0.1.0-RC7
+  tty: true
+  image: registry.viareport.com:8080/inativ/leasev2-reducer:0.1.0-RC7
+  links:
+  - ${eventstore_source}:${eventstore_host}
+  stdin_open: true
