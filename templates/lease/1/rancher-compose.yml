@@ -1,9 +1,15 @@
 .catalog:
-  name: "Lease"
+  name: "lease"
   version: "1"
   questions:
+    - variable: "registry_url"
+      description: "Registry url"
+      label: "Registry url"
+      type: "string"
+      required: true
+      default: "registry.viareport.com:8080"
     - variable: "authentication_source"
-      description: "Module de vérification d'accés pour nos services"
+      description: "Authentication stack"
       label: "Authentication source"
       type: "service"
       required: true
