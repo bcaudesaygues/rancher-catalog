@@ -1,17 +1,8 @@
 lease-front:
   labels:
-    container: lease-front:1.0.0
+    container: leasev2-front:0.1.0-RC3
   tty: true
-  image: registry.viareport.com:8080/inativ/lease-front:1.0.0
-  stdin_open: true
-lease-reducer:
-  labels:
-    io.rancher.container.pull_image: always
-    container: lease-reducer:1.0.0
-  tty: true
-  image: registry.viareport.com:8080/inativ/lease-reducer:1.0.0
-  links:
-  - ${eventstore_source}:${eventstore_host}
+  image: registry.viareport.com:8080/inativ/leasev2-front:0.1.0-RC3
   stdin_open: true
 lease-back:
   environment:
@@ -25,12 +16,21 @@ lease-back:
   external_links:
   - ${authentication_source}:authentication
   labels:
-    container: lease-back:1.0.0
+    container: leasev2-back:0.1.0-RC7
   tty: true
-  image: registry.viareport.com:8080/inativ/lease-back:1.0.0
+  image: registry.viareport.com:8080/inativ/leasev2-back:0.1.0-RC7
   links:
   - ${eventstore_source}:${eventstore_host}
   - ${reducer_source}:${reducer_host}
   volumes:
   - /var/log/inativ/lease/back:/logs
+  stdin_open: true
+lease-reducer:
+  labels:
+    io.rancher.container.pull_image: always
+    container: leasev2-reducer:0.1.0-RC7
+  tty: true
+  image: registry.viareport.com:8080/inativ/leasev2-reducer:0.1.0-RC7
+  links:
+  - ${eventstore_source}:${eventstore_host}
   stdin_open: true

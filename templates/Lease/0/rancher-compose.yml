@@ -3,7 +3,7 @@
   version: "0"
   questions:
     - variable: "authentication_source"
-      description: "Module de vérification d'accés pour nos services"
+      description: "Module de verification pour nos services"
       label: "Authentication source"
       type: "service"
       required: true
@@ -15,13 +15,13 @@
       required: true
       default: "eventstore/eventstore"
     - variable: "eventstore_host"
-      description: "Nom utilisé par lease pour contacter l'Eventstore"
+      description: "Nom utilise par lease pour contacter l'Eventstore"
       label: "Eventstore lease name"
       type: "string"
       required: true
       default: "eventstore"
     - variable: "eventstore_port"
-      description: "Port utilisé par lease pour contacter l'Eventstore"
+      description: "Port utilise par lease pour contacter l'Eventstore"
       label: "Eventstore lease port"
       type: "string"
       required: true
@@ -38,9 +38,9 @@
       required: true
     - variable: "reducer_host"
       description: "Nom du reducer pour le back"
-      label: "Long poll"
+      label: "Nom du reducer"
       type: "string"
-      default: "10"
+      default: "leasev2-reducer"
       required: true
     - variable: "reducer_port"
       description: "Port du reducer"
@@ -48,7 +48,6 @@
       type: "string"
       required: true
       default: "4567"
-
 lease-front:
   scale: 1
   health_check:
@@ -61,7 +60,7 @@ lease-front:
 lease-back:
   scale: 1
   health_check:
-    port: ${back_port}
+    port: 4567
     interval: 2000
     unhealthy_threshold: 3
     strategy: recreate
