@@ -1,6 +1,6 @@
 .catalog:
   name: "Lease"
-  version: "1.0.0"
+  version: "0"
   questions:
     - variable: "registry_url"
       description: "Registry url"
