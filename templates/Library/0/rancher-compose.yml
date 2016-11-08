@@ -1,0 +1,60 @@
+.catalog:
+  name: "Library"
+  version: "0"
+  questions:
+    - variable: "authentication_source"
+      description: "L'assistance necessite le service d'authentification"
+      label: "Authentication source"
+      type: "service"
+      required: true
+      default: "authentication/authentication"
+    - variable: "authentication_alias"
+      description: "Alias de l'authentification a utliser dans la Library"
+      label: "Library alias"
+      type: "string"
+      required: true
+      default: "1113"
+    - variable: "database_url"
+      description: "Url de la base de donnee utilise par l'assistance"
+      label: "Url de base de donnee"
+      type: "string"
+      required: true
+      default: "vpp-ibd102.viareportdomain.com"
+    - variable: "database_alias"
+      description: "Alias de la base de donnee a utliser dans l'assistance"
+      label: "Base de donnée alias"
+      type: "string"
+      required: true
+      default: "postgres"
+    - variable: "database_name"
+      description: "Nom de la base de donnee a utiliser pour assistance"
+      label: "Nom de la base de donnee"
+      type: "string"
+      required: true
+      default: "library"
+    - variable: "database_password"
+      description: "Mot de passe pour ce connecter a la base de donnee"
+      label: "Password de la base de donnee"
+      type: "password"
+      required: true
+library-front:
+  scale: 1
+  health_check:
+    port: 80
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+library-back:
+  scale: 1
+  health_check:
+    port: 4567
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET /library/v1/ping HTTP/1.0
+    healthy_threshold: 2
+database:
+  hostname: ${database_url}

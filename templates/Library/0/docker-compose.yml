@@ -1,0 +1,26 @@
+library-front:
+  labels:
+    container: library-front:0.0.3-RC43
+  tty: true
+  image: registry.viareport.com:8080/inativ/library-front:0.0.3-RC43
+  stdin_open: true
+library-back:
+  environment:
+    INATIV_SERVER: http://${authentication_alias}:9000
+    PG_DB_NAME: ${database_name}
+    PG_LOGIN: ${database_login}
+    PG_PASSWORD: ${database_password}
+    PG_PORT: ${database_port}
+    PG_URL: ${database_alias}
+  labels:
+    container: library:1.0.4-RC7
+  tty: true
+  image: registry.viareport.com:8080/inativ/library:1.0.4-RC7
+  links:
+  - ${authentication_source}:${authentication_alias}
+  - database:${database_alias}
+  volumes:
+  - /var/log/inativ/library:/logs
+  stdin_open: true
+database:
+  image: rancher/external-service
