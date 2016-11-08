@@ -38,9 +38,9 @@
       required: true
     - variable: "reducer_host"
       description: "Nom du reducer pour le back"
-      label: "Long poll"
+      label: "Nom du reducer"
       type: "string"
-      default: "10"
+      default: "leasev2-reducer"
       required: true
     - variable: "reducer_port"
       description: "Port du reducer"
