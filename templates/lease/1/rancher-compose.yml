@@ -9,7 +9,7 @@
       required: true
       default: "registry.viareport.com:8080"
     - variable: "authentication_source"
-      description: "Authentication stack"
+      description: "Module de vérification d'accés pour nos services"
       label: "Authentication source"
       type: "service"
       required: true
