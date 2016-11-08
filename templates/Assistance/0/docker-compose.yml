@@ -1,0 +1,18 @@
+assistance:
+  environment:
+    postgres_database: ${database_name}
+    postgres_password: ${database_password}
+  labels:
+    io.rancher.container.pull_image: always
+    container: assistance:1.1.2-RC46
+    io.rancher.scheduler.affinity:host_label: status=ok
+  tty: true
+  image: registry.viareport.com:8080/inativ/assistance:1.1.2-RC46
+  links:
+  - ${library_service}:${library_alias}
+  - database:${database_alias}
+  volumes:
+  - /var/log/inativ/assistance:/var/log/inativ/assistance
+  stdin_open: true
+database:
+  image: rancher/external-service
