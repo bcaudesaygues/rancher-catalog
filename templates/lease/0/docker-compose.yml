@@ -1,0 +1,36 @@
+lease-front:
+  labels:
+    container: lease-front:1.0.0
+  tty: true
+  image: ${registry_url}/inativ/lease-front:1.0.0
+  stdin_open: true
+lease-reducer:
+  labels:
+    io.rancher.container.pull_image: always
+    container: lease-reducer:1.0.0
+  tty: true
+  image: ${registry_url}/inativ/lease-reducer:1.0.0
+  links:
+  - ${eventstore_source}:${eventstore_host}
+  stdin_open: true
+lease-back:
+  environment:
+    EVENT_STORE_HOST: ${eventstore_host}
+    EVENT_STORE_PORT: ${eventstore_port}
+    EVENT_STORE_USER: ${eventstore_login}
+    EVENT_STORE_PWD: ${eventstore_password}
+    EVENT_STORE_LONGPOLL: ${eventstore_longpoll}
+    LEASE_REDUCER_HOST: ${reducer_host}
+    LEASE_REDUCER_PORT: ${reducer_port}
+  external_links:
+  - ${authentication_source}:authentication
+  labels:
+    container: lease-back:1.0.0
+  tty: true
+  image: ${registry_url}/inativ/lease-back:1.0.0
+  links:
+  - ${eventstore_source}:${eventstore_host}
+  - ${reducer_source}:${reducer_host}
+  volumes:
+  - /var/log/inativ/lease/back:/logs
+  stdin_open: true
