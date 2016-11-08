@@ -1,53 +1,6 @@
 .catalog:
   name: "Lease"
   version: "1"
-  questions:
-    - variable: "authentication_source"
-      description: "Module de vérification d'accés pour nos services"
-      label: "Authentication source"
-      type: "service"
-      required: true
-      default: "authentication/authentication"
-    - variable: "eventstore_source"
-      description: "Service de l'eventstore"
-      label: "EventStore service"
-      type: "service"
-      required: true
-      default: "eventstore/eventstore"
-    - variable: "eventstore_host"
-      description: "Nom utilisé par lease pour contacter l'Eventstore"
-      label: "Eventstore lease name"
-      type: "string"
-      required: true
-      default: "eventstore"
-    - variable: "eventstore_port"
-      description: "Port utilisé par lease pour contacter l'Eventstore"
-      label: "Eventstore lease port"
-      type: "string"
-      required: true
-      default: "1113"
-    - variable: "eventstore_login"
-      description: "Nom d'utilisateur pour ce connecter à l'Eventstore"
-      label: "Evenstore user login"
-      type: "string"
-      required: true
-    - variable: "eventstore_password"
-      description: "Mot de passe d'utilisateur pour ce connecter à l'Eventstore"
-      label: "Eventstore user password"
-      type: "password"
-      required: true
-    - variable: "reducer_host"
-      description: "Nom du reducer pour le back"
-      label: "Long poll"
-      type: "string"
-      default: "10"
-      required: true
-    - variable: "reducer_port"
-      description: "Port du reducer"
-      label: "Lease service reducer port"
-      type: "string"
-      required: true
-      default: "4567"
 lease-front:
   scale: 1
   health_check:
@@ -56,24 +9,4 @@ lease-front:
     unhealthy_threshold: 3
     strategy: recreate
     response_timeout: 2000
-    healthy_threshold: 2
-lease-back:
-  scale: 1
-  health_check:
-    port: ${back_port}
-    interval: 2000
-    unhealthy_threshold: 3
-    strategy: recreate
-    response_timeout: 2000
-    request_line: GET "/apilease/ping" "HTTP/1.0"
-    healthy_threshold: 2
-lease-reducer:
-  scale: 1
-  health_check:
-    port: ${reducer_port}
-    interval: 2000
-    unhealthy_threshold: 3
-    strategy: recreate
-    response_timeout: 2000
-    request_line: GET "/apicontratreducer/ping" "HTTP/1.0"
     healthy_threshold: 2
