@@ -1,0 +1,45 @@
+.catalog:
+  name: "Authentication"
+  version: "0"
+  questions:
+    - variable: "play_pool"
+      description: "Cpu max utilisé par l'application"
+      label: "Play thread pool"
+      type: "string"
+      required: true
+      default: "5"
+    - variable: "database_url"
+      description: "Url de la base de donnee utilise par l'assistance"
+      label: "Url de base de donnee"
+      type: "string"
+      required: true
+      default: "vpp-ibd102.viareportdomain.com"
+    - variable: "database_alias"
+      description: "Alias de la base de donnee a utliser dans l'assistance"
+      label: "Base de donnee alias"
+      type: "string"
+      required: true
+      default: "postgres"
+    - variable: "database_name"
+      description: "Nom de la base de donnee a utiliser pour assistance"
+      label: "Nom de la base de donnee"
+      type: "string"
+      required: true
+      default: "authentication"
+    - variable: "database_password"
+      description: "Mot de passe pour ce connecter a la base de donnee"
+      label: "Password de la base de donnee"
+      type: "password"
+      required: true
+authentication:
+  scale: 1
+  health_check:
+    port: 9000
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET /ping "HTTP/1.0"
+    healthy_threshold: 2
+database:
+  hostname: ${database_url}

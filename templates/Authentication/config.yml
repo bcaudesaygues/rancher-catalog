@@ -1,0 +1,4 @@
+name: "Authentication stack"
+description: "Application d'authentification et de validation d'access a nos applications"
+version: "0"
+category: inativ

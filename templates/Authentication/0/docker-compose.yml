@@ -1,0 +1,16 @@
+authentication:
+  environment:
+    play_pool: ${play_pool}
+    postgres_database: inativ
+  labels:
+    container: authentication:1.0.8-RC12
+  tty: true
+  image: registry.viareport.com:8080/inativ/authentication:1.0.8-RC12
+  links:
+  - database:${database_alias}
+  volumes:
+  - /mnt/inativ/data:/var/lib/data/attachments
+  - /var/log/inativ/authentication:/var/log/inativ/authentication
+  stdin_open: true
+database:
+  image: rancher/external-service
