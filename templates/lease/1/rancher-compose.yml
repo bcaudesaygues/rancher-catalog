@@ -48,7 +48,6 @@
       type: "string"
       required: true
       default: "4567"
-
 lease-front:
   scale: 1
   health_check:
