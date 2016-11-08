@@ -21,13 +21,13 @@
       required: true
       default: "vpp-ibd102.viareportdomain.com"
     - variable: "database_alias"
-      description: "Alias de la base de donnee a utliser dans l'assistance"
-      label: "Base de donnée alias"
+      description: "Alias de la base de donnee a utliser"
+      label: "Base de donnee alias"
       type: "string"
       required: true
       default: "postgres"
     - variable: "database_name"
-      description: "Nom de la base de donnee a utiliser pour assistance"
+      description: "Nom de la base de donnee a utiliser"
       label: "Nom de la base de donnee"
       type: "string"
       required: true
